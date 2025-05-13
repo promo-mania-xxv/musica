@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clases de Guitarra | Emmanuel Rojas</title>
+    <!-- Corregido: añadido Google Fonts en el head en lugar de con @import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables y Reset */
+        :root {
+            --primary: #FF4D4D; /* Rojo guitarra eléctrica */
+            --dark: #1A1A2E;
+            --light: #F5F5F5;
+            --white: #FFFFFF;
+            --gradient: linear-gradient(135deg, var(--primary), #FF8E53);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Hero Section con Fondo */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            overflow: hidden;
+            background: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+            max-width: 800px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 30px;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+        }
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 77, 77, 0.6);
+        }
+        .btn-outline {
+            display: inline-block;
+            border: 2px solid var(--white);
+            color: var(--white);
+            background: transparent;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+        }
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Servicios - Tarjetas Animadas */
+        .services {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .services h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        .services .subtitle {
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+        .service-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 40px 25px;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        .card i {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .price {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            font-weight: 700;
+        }
+        .price strong {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Sobre Emmanuel - Diseño Moderno */
+        .about {
+            padding: 80px 20px;
+            background: var(--dark);
+            color: var(--white);
+        }
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: center;
+        }
+        .about-img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        .about-text h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        .about-text p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .signature {
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Contacto - Llamado a la Acción */
+        .contact {
+            padding: 100px 20px;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            position: relative;
+            color: var(--white);
+        }
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 46, 0.9);
+        }
+        .contact-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            margin-bottom: 20px;
+        }
+        .contact p {
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding-top: 20px;
+            }
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 15px;
+                display: block;
+            }
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section con Fondo -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Clases de Guitarra Personalizadas</h1>
+            <p>Aprende con un método adaptado a tus objetivos. Vos elegís el estilo, el horario y el lugar.</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/5493764676093" class="btn">¡Quiero empezar!</a>
+                <a href="#services" class="btn-outline">Ver más</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="services" class="services">
+        <h2>Mis Servicios</h2>
+        <p class="subtitle">Clases diseñadas para que aprendas rápido y disfrutes el proceso</p>
+        <div class="service-cards">
+            <div class="card">
+                <i class="fas fa-guitar"></i>
+                <h3>Guitarra Eléctrica o Acústica</h3>
+                <p>Técnicas modernas, escalas, acordes, teoría aplicada y mucho más.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Flexibilidad Total</h3>
+                <p>Clases presenciales en tu domicilio.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-music"></i>
+                <h3>Aprende tus Canciones Favoritas</h3>
+                <p>Enfócate en el repertorio que te apasiona: rock, pop, etc.</p>
+            </div>
+        </div>
+        <div class="price">
+            <p>Precio: <strong>$4,000 ARS</strong> por hora (clase individual)</p>
+        </div>
+    </section>
+
+    <!-- Sobre Emmanuel -->
+    <section class="about">
+        <div class="about-content">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1549213783-8284d0336c4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Emmanuel con su guitarra">
+            </div>
+            <div class="about-text">
+                <h2>Emmanuel Rojas</h2>
+                <p class="signature">"Al mal tiempo, buena música"</p>
+                <a href="https://www.instagram.com/emanuel.r.ok/" class="btn-outline"><i class="fab fa-instagram"></i> Seguime en Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contact">
+        <div class="contact-content">
+            <h2>¿Listo para comenzar tu viaje musical?</h2>
+            <p>Contactame ahora para coordinar tu primera clase. ¡La primera consulta es sin compromiso!</p>
+            <div class="contact-buttons">
+                <a href="https://wa.me/5493764676093" class="btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://www.instagram.com/emanuel.r.ok/" class="btn-outline"><i class="fab fa-instagram"></i> Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Emmanuel Rojas - Clases de Guitarra Personalizadas | Todos los derechos reservados</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Animación de las tarjetas al hacer scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            // Efecto de carga suave
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // Animación de cards con IntersectionObserver
+            const cards = document.querySelectorAll('.card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Añadir retardo escalonado para las tarjetas
+                        setTimeout(() => {
+                            entry.target.classList.add('show');
+                        }, index * 150);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+
+        // Smooth scroll para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
